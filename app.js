@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 var routes = require('./routes/index');
-// var users = require('./routes/makers');
+var makers = require('./routes/makers');
 var app = express();
-
+var config = require('./config/env/' + app.get('env'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -23,9 +23,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-// app.use('/users', users);
+app.use('/makers', makers);
 
-mongoose.connect('mongodb://localhost/testApiDev', function(err) {
+mongoose.connect(config.db.mongodb, function(err) {
   if(err) {
     console.log('connection error', err);
   } else {
