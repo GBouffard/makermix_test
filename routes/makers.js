@@ -4,6 +4,13 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Maker = require('../models/maker.js')
 
+router.get('/', function(req, res, next) {
+  Maker.find(function (err, makers) {
+    if (err) return next(err);
+    res.json(makers);
+  });
+});
+
  router.post('/', function(req, res, next) {
   Maker.create(req.body, function (err, post) {
     if (err) return next(err);
