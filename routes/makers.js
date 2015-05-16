@@ -11,9 +11,16 @@ router.get('/', function(req, res, next) {
   });
 });
 
- router.post('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
   Maker.create(req.body, function (err, post) {
     if (err) return next(err);
+    res.json(post);
+  });
+});
+
+router.delete('/:id', function(req, res, next) {
+  Maker.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+    if(err) return next(err);
     res.json(post);
   });
 });
